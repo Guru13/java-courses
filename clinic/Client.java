@@ -4,7 +4,7 @@
   * &since 16.07.2015
   */
   public class Client {
-	private final String id;
+	private  String id;
 	private final Pet pet;
 	
 	public Client(String id, Pet pet){
@@ -16,5 +16,8 @@
 	}
 	public String getId(){
 		return this.id;
+	}
+	public void setId(String id){
+		this.id = id;
 	}
   }
