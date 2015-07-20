@@ -39,4 +39,10 @@ public abstract class Pet {
         return this.name;
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

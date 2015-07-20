@@ -1,5 +1,8 @@
 package by.guru13.clinic;
 
+import java.util.Iterator;
+import java.util.Scanner;
+
 /**
  * класс описывает клинику
  *
@@ -11,63 +14,59 @@ public class Clinic {
     /**
      * Список клиентов
      */
-    private final Client[] clients;
+    private final SimpleLinkedList<Client> clients;
 
     /**
      * конструктор
-     *
-     * @param size количество возможных клиентов
      */
-    public Clinic(final int size) {
-        this.clients = new Client[size];
+    public Clinic() {
+        this.clients = new SimpleLinkedList<Client>();
     }
 
     /**
      * @return массив клиентов
      */
-    public Client[] getClients() {
+    public SimpleLinkedList<Client> getClients() {
         return clients;
+    }
+
+    /**
+     * Получение клиента по индексу
+     *
+     * @param index индекс клиента
+     * @return возвращает клиента под данным индексом
+     */
+    public Client getClient(int index) {
+        return clients.get(index);
     }
 
     /**
      * добавить клиента
      *
-     * @param position позиция в списке
-     * @param client   клиент
+     * @param client клиент
      */
-    public void addClient(final int position, final Client client) {
-        while (clients[position] != null) {
-            System.out.println("Position " + position + " is already exist. Please, enter other position");
-        }
-        this.clients[position] = client;
+    public void addClient(final Client client) {
+        this.clients.addLast(client);
     }
 
-    /**
-     * удалить клиента по id
-     *
-     * @param position позиция
-     */
-    public void removeClientById(final int position) {
-        clients[position] = null;
-    }
 
     /**
      * удалить клиента по имени
      *
-     * @param name позиция
+     * @param name имя клиента
      */
     public void removeClientByName(final String name) {
         int j = 0;
-        for (int i = 0; i < clients.length; i++) {
-            if (clients[i] != null && clients[i].getId().equals(name)) {
-                clients[i] = null;
+        for (Iterator<Client> it = clients.iterator(); it.hasNext(); ) {
+            if (it.next().getId().equals(name)) {
+                it.remove();
                 j = j + 1;
             }
         }
         if (j != 0) {
-            System.out.println("Удаление клинета прошло успешно");
+            System.out.println("The client " + name + " has removed successfully");
         } else {
-            System.out.println("Такого клиента нет в базе");
+            System.out.println("That client doesn't exist in the base");
         }
     }
 
@@ -76,12 +75,12 @@ public class Clinic {
      *
      * @param name имя животного
      */
-    public Client[] findClientsByPetName(final String name) {
-        Client[] foundedClients = new Client[clients.length];
+    public SimpleLinkedList<Client> findClientsByPetName(final String name) {
+        SimpleLinkedList<Client> foundedClients = new SimpleLinkedList<Client>();
         int i = 0;
         for (Client client : clients) {
             if (client != null && client.getPet().getName().equals(name)) {
-                foundedClients[i] = client;
+                foundedClients.addLast(client);
                 i++;
             }
         }
@@ -94,7 +93,7 @@ public class Clinic {
      * @param name имя животинки
      */
     public void printClientsByPetName(final String name) {
-        Client[] foundedClients = findClientsByPetName(name);
+        SimpleLinkedList<Client> foundedClients = findClientsByPetName(name);
         int j = 0;
         for (Client client : foundedClients) {
             if (client != null) {
@@ -103,7 +102,7 @@ public class Clinic {
             }
         }
         if (j == 0) {
-            System.out.println("Клиента с таким животным не обнаружено");
+            System.out.println("Client with that pet's name didn't find");
         }
     }
 
@@ -112,12 +111,12 @@ public class Clinic {
      *
      * @param client имя клиента
      */
-    public Pet[] findPetsByClient(final String client) {
-        Pet[] foundedPets = new Pet[clients.length];
+    public SimpleLinkedList<Pet> findPetsByClient(final String client) {
+        SimpleLinkedList<Pet> foundedPets = new SimpleLinkedList<Pet>();
         int i = 0;
         for (Client clientId : clients) {
             if (clientId != null && clientId.getId().equals(client)) {
-                foundedPets[i] = clientId.getPet();
+                foundedPets.addLast(clientId.getPet());
                 i++;
             }
         }
@@ -130,7 +129,7 @@ public class Clinic {
      * @param client имя клиента
      */
     public void printPetsByClient(final String client) {
-        Pet[] foundedPets = findPetsByClient(client);
+        SimpleLinkedList<Pet> foundedPets = findPetsByClient(client);
         int j = 0;
         for (Pet pet : foundedPets) {
             if (pet != null) {
@@ -139,7 +138,7 @@ public class Clinic {
             }
         }
         if (j == 0) {
-            System.out.println("Клиента с таким животным не обнаружено");
+            System.out.println("Client with that pet's name didn't find");
         }
     }
 
@@ -147,10 +146,9 @@ public class Clinic {
      * печать всех клиентов клиники и их домашних животных
      */
     public void printAllClients() {
-        for (int i = 0; i < clients.length; i++) {
-            if (clients[i] != null) {
-                System.out.println(clients[i].getId() + " - " + clients[i].getPet().getName());
-            }
+        for (Client client : clients) {
+            System.out.println(client.getId() + " - " + client.getPet().getName());
+
         }
     }
 }
