@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="clinic-pet-web:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/clinic_pet_web_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="clinic-pet-web/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
