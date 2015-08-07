@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Cat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Client.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Clinic.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/ClinicRunner.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Dog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Parot.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/by/guru13/clinic/Pet.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/by/guru13/clinic/ClinicTest.java" charset="UTF-8" />
   </component>
 </project>

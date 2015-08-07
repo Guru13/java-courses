@@ -2,15 +2,29 @@ package by.guru13.clinic;
 
 import java.util.Iterator;
 
-
+/**
+ * класс простая реализация связанного списка
+ * @param <E>
+ */
 public class SimpleLinkedList<E> implements Iterable<E>{
+
     private Node root;
+    /**
+     * размер списка
+     */
     private int size;
 
+    /**
+     * конструктор устанавливает размер списка равным 0
+     */
     public SimpleLinkedList() {
         this.size = 0;
     }
 
+    /**
+     * добавляет объект в начало списка
+     * @param object добавляемый объект
+     */
     public void addFirst(E object) {
         Node node = new Node();
         node.obj = object;
@@ -22,6 +36,10 @@ public class SimpleLinkedList<E> implements Iterable<E>{
 
     }
 
+    /**
+     * добавляет объект в конец списка
+     * @param object добавляемый объект
+     */
     public void addLast(E object) {
         Node node = new Node();
         node.obj =  object;
@@ -38,6 +56,11 @@ public class SimpleLinkedList<E> implements Iterable<E>{
         size++;
     }
 
+    /**
+     * добавляет объект в середину списка, после указанного объекта
+     * @param object добавляемый объект
+     * @param prev объект, после которого добавляется данный объект
+     */
     public void addAfter(E object, E prev) {
         Node prevPointer = null;
         Node cp = root;
@@ -62,22 +85,34 @@ public class SimpleLinkedList<E> implements Iterable<E>{
 
     }
 
+    /**
+     * возвращает размер списка
+     * @return размер списка
+     */
     public int getSize() {
         return size;
     }
 
-    public E get(int index){
+    /**
+     * возврашает объект под индексом index
+     * @param index индекс возвращаемого объекта
+     * @return возврашает объект под индексом index
+     */
+    public E get(int index) {
         int i = 0;
         E element = null;
         Iterator<E> it = this.iterator();
-       while (index != i){
-           element = it.next();
-           i++;
-       }
+        while (index != i) {
+            element = it.next();
+            i++;
+        }
         return element;
     }
 
-
+    /**
+     * возвращает итератор класс
+     * @return класс итератор
+     */
     public Iterator<E> iterator() {
         return new SllIterator();
     }
@@ -87,6 +122,11 @@ public class SimpleLinkedList<E> implements Iterable<E>{
         E obj;
         Node ref;
     }
+
+    /**
+     * класс-итератор
+     * @param <E>
+     */
     private class SllIterator<E> implements Iterator<E> {
         private Node prev;
         private Node cp;
@@ -94,11 +134,18 @@ public class SimpleLinkedList<E> implements Iterable<E>{
         public SllIterator() {
         }
 
-
+        /**
+         * возвращает есть ли следующий элемент
+         * @return true если есть следующий элемент
+         */
         public boolean hasNext() {
             return (cp == null && root != null) || (cp != null && cp.ref != null);
         }
 
+        /**
+         * возвращает следующий элемент
+         * @return возвращает следующий элемент
+         */
         public E next() {
             if (cp == null){
                 cp = root;
@@ -112,6 +159,9 @@ public class SimpleLinkedList<E> implements Iterable<E>{
             throw new IllegalStateException("List has no more elements");
         }
 
+        /**
+         * удалят данный элемент
+         */
         public void remove() {
             if (!hasNext() && prev == null){
                 //only one element

@@ -21,6 +21,10 @@ public class ClinicRunner {
         clinic.addClient(new Client("Pushkin", new Parot("Gosha")));
         clinic.addClient(new Client("Turgenev", new Dog("Mu-mu")));
     }
+
+    /**
+     * добавляет клиента
+     */
     public void addClient( ){
         System.out.println("Enter client's name, please");
         final String name = reader.next();
@@ -61,7 +65,7 @@ public class ClinicRunner {
     }
 
     /**
-     * запуск
+     * запуск клиники
      */
     public void go() {
 

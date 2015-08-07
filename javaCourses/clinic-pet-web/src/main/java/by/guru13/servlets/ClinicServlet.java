@@ -44,9 +44,11 @@ public class ClinicServlet extends HttpServlet {
                         "<p></p>" +
                         "           <input type='submit' value='Submit'>" +
                         "</br>" +
+                                "</form>" +
                         this.viewClients() +
                         "</br>" +
                         "<p></p>" +
+                        "       <form action='" + req.getContextPath() + "/' method='post'>" +
                         "           Search pet by client's name: <input type = 'text' name = 'search'>" +
                         "           <input type='submit' value='Search'>" +
                         "       </form>" +
@@ -59,13 +61,16 @@ public class ClinicServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("types").equals("dog")) {
-            this.clients.add(new Client(req.getParameter("clientName"), new Dog(req.getParameter("petName"))));
-        }else if (req.getParameter("types").equals("cat")){
-            this.clients.add(new Client(req.getParameter("clientName"), new Cat(req.getParameter("petName"))));
-        }else if (req.getParameter("types").equals("parrot")){
-            this.clients.add(new Client(req.getParameter("clientName"), new Parot(req.getParameter("petName"))));
+        Pet pet = null;
+        if (req.getParameter("types").equals("dog")){
+            pet =  new Dog(req.getParameter("petName"));
+        } else  if (req.getParameter("types").equals("cat")) {
+            pet = new Cat(req.getParameter("petName"));
+        } else  if (req.getParameter("types").equals("parrot")) {
+            pet = new Parot(req.getParameter("petName"));
         }
+        this.clients.add(new Client(req.getParameter("clientName"), pet));
+
         requestSearch = req.getParameter("search");
 //        this.pets.add(new Dog(req.getParameter("name")));
         doGet(req, resp);
@@ -80,7 +85,7 @@ public class ClinicServlet extends HttpServlet {
         sb.append("<td style = 'border : 1px solid black'>Type</td>");
         sb.append("<tr>");
         for (Client client : this.clients){
-            if (!client.getId().equals("") && !client.getPet().getName().equals("")) {
+            if (!client.getId().isEmpty() && !client.getPet().getName().isEmpty()) {
                 sb.append("<tr>");
                 sb.append("<td style = 'border : 1px solid black'>").append(client.getId()).append("</td>");
                 sb.append("<td style = 'border : 1px solid black'>").append(client.getPet().getName()).append("</td>");
@@ -100,7 +105,7 @@ public class ClinicServlet extends HttpServlet {
         sb.append("<td style = 'border : 1px solid black'>Type</td>");
         sb.append("<tr>");
         for (Client client : this.clients){
-            if (client.getId().equals(requestSearch) && !client.getId().equals("") && !client.getPet().getName().equals("")) {
+            if (client.getId().equals(requestSearch) && !client.getId().isEmpty() && !client.getPet().getName().isEmpty()) {
                 sb.append("<tr>");
                 sb.append("<td style = 'border : 1px solid black'>").append(client.getPet().getName()).append("</td>");
                 sb.append("<td style = 'border : 1px solid black'>").append(client.getPet().getClass().getSimpleName()).append("</td>");

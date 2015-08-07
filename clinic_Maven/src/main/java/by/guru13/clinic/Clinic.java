@@ -148,7 +148,6 @@ public class Clinic {
     public void printAllClients() {
         for (Client client : clients) {
             System.out.println(client.getId() + " - " + client.getPet().getName());
-
         }
     }
 }
